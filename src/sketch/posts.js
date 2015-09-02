@@ -11,6 +11,7 @@ const actions = {
   LOAD_USERS_SUCCESS: 'LOAD_USERS_SUCCESS',
   LOAD_COMMENTS: 'LOAD_COMMENTS',
   LOAD_COMMENTS_SUCCESS: 'LOAD_COMMENTS_SUCCESS',
+  LOAD_BEGIN: 'LOAD_BEGIN',
   LOAD_COMPLETE: 'LOAD_COMPLETE'
 };
 
@@ -101,6 +102,7 @@ let LOAD_POSTS = fetchActionCreator({
   url: 'http://jsonplaceholder.typicode.com/posts',
   type: actions.LOAD_POSTS,
   cache: true,
+  beginAction: actions.LOAD_BEGIN,
   completeAction: actions.LOAD_COMPLETE
 });
 
@@ -108,6 +110,7 @@ let LOAD_USERS = fetchActionCreator({
   url: 'http://jsonplaceholder.typicode.com/users',
   type: actions.LOAD_USERS,
   cache: true,
+  beginAction: actions.LOAD_BEGIN,
   completeAction: actions.LOAD_COMPLETE
 });
 
@@ -115,6 +118,7 @@ let LOAD_COMMENTS = fetchActionCreator({
   url: 'http://jsonplaceholder.typicode.com/comments',
   type: actions.LOAD_COMMENTS,
   cache: true,
+  beginAction: actions.LOAD_BEGIN,
   completeAction: actions.LOAD_COMPLETE
 });
 
@@ -148,12 +152,13 @@ class PostDetail extends Component {
   }
   render() {
     const thePost = this.props.post;
+    let theUser = this.props.user || {};
     return (
       <Panel header={this._renderTitle(thePost)}
         bsStyle="info">
           {thePost.body}
           <hr />
-          {`-- ${this.props.user.name}`}
+          {`-- ${theUser.name}`}
       </Panel>
     );
   }
