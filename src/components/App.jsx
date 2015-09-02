@@ -56,4 +56,4 @@ class LoadingBar extends Component {
   }
 }
 
-export default connect((reducers)=> { return {uiState: reducers.uiState}; })(App);
+export default connect((reducers)=> ({uiState: reducers.uiState}))(App);

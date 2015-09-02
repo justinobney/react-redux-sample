@@ -18,7 +18,7 @@ export default class PostDetail extends Component {
         bsStyle="info">
           {thePost.body}
           <hr />
-          {`-- ${theUser.name}`}
+          {`-- ${theUser.name || 'Loading...'}`}
       </Panel>
     );
   }
