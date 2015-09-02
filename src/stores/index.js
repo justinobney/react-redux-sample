@@ -4,7 +4,9 @@ import thunk from 'redux-thunk';
 
 import {uiState} from 'reducers/uiState';
 import {officeState} from 'reducers/offices';
-import {posts, users, comments} from '../sketch/posts';
+import {posts} from 'reducers/posts';
+import {users} from 'reducers/users';
+import {comments} from 'reducers/comments';
 
 let reducerTree = {
   uiState,

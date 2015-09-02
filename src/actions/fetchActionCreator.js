@@ -23,7 +23,7 @@ export function fetchActionCreator(config = {}) {
         fetch(config.url, settings)
           .then(resp => resp.json())
           .then(onSuccess, onError)
-          .then(delayComplete);
+          .then(()=>dispatch({type: completeAction}));
       }
 
       function onSuccess(json) {
@@ -36,11 +36,6 @@ export function fetchActionCreator(config = {}) {
 
       function onError(error) {
         dispatch({type: errorAction, error});
-      }
-
-      function delayComplete() {
-        let delay = Math.ceil(Math.random() * 3000);
-        setTimeout(()=>dispatch({type: completeAction}), delay);
       }
     };
   };

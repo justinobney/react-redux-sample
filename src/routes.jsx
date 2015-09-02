@@ -3,7 +3,7 @@ import {Route} from 'react-router';
 import App from 'components/App';
 import Home from 'components/Home';
 import OfficeLayout, * as Offices from 'components/offices';
-import Posts from './sketch/posts.js';
+import Posts from 'components/posts/Posts.js';
 
 const routes = (
   <Route component={App}>
