@@ -1,5 +1,5 @@
 // Connected component
-import React, {Component} from 'react';
+import React, {Component} from 'react/addons';
 import {connect} from 'react-redux';
 import {Row, Col, Table, Button} from 'react-bootstrap';
 

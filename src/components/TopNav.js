@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component} from 'react/addons';
 import {Navbar, Nav, NavItem} from 'react-bootstrap';
 
 class TopNav extends Component {

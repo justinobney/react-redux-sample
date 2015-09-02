@@ -1,5 +1,5 @@
 // Connected component
-import React, {Component} from 'react';
+import React, {Component} from 'react/addons';
 import List from './List';
 import Detail from './Detail';
 

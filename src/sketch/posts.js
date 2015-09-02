@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component} from 'react/addons';
 import {connect} from 'react-redux';
 import {Row, Col, Panel} from 'react-bootstrap';
 import {fetchActionCreator} from 'actions/fetchActionCreator';

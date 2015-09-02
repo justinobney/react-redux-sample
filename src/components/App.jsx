@@ -1,5 +1,5 @@
 // Connected component
-import React, {Component} from 'react';
+import React, {Component} from 'react/addons';
 import {connect} from 'react-redux';
 import {Grid, ProgressBar} from 'react-bootstrap';
 import TopNav from './TopNav';

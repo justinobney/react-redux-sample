@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react/addons';
 import {Route} from 'react-router';
 import App from 'components/App';
 import Home from 'components/Home';

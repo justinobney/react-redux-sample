@@ -1,5 +1,5 @@
 import 'babel-core/polyfill';
-import React from 'react';
+import React from 'react/addons';
 import Root from './containers/Root';
 import HashHistory from 'react-router/lib/HashHistory';
 
