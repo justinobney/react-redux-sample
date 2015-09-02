@@ -9,6 +9,7 @@ class TopNav extends Component {
             <Navbar brand={<a href="#/">react-redux-sample</a>}>
                 <Nav>
                     <NavItem href="#/offices">Offices</NavItem>
+                    <NavItem href="#/posts">Posts</NavItem>
                 </Nav>
             </Navbar>
         );
