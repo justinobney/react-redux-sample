@@ -1,7 +1,7 @@
 import React, {Component} from 'react/addons';
 import {connect} from 'react-redux';
 import {Row, Col} from 'react-bootstrap';
-import {LOAD_POSTS, LOAD_USERS, LOAD_COMMENTS} from 'actions/api';
+import {LOAD_POSTS, LOAD_USERS} from 'actions/api';
 import PostDetail from 'components/posts/PostDetail';
 
 // Posts component
@@ -14,19 +14,14 @@ class Posts extends Component {
     if (this.props.loadUsers) {
       this.props.loadUsers();
     }
-    // if (this.props.loadComments) {
-    //   this.props.loadComments();
-    // }
   }
   _renderPost(thePost) {
     let theUser = this._findByKey(this.props.users, 'id', thePost.userId);
-    let theComments = this.props.comments.filter((item) => item.postId === thePost.id);
     return (
       <PostDetail
         key={`postDetail_${thePost.id}`}
         post={thePost}
-        user={theUser}
-        comments={theComments} />
+        user={theUser} />
     );
   }
   _findByKey(col, key, id) {
@@ -53,16 +48,14 @@ class Posts extends Component {
 function mapStateToProps(reducers) {
   return {
     posts: reducers.posts,
-    users: reducers.users,
-    comments: reducers.comments
+    users: reducers.users
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     loadPosts: (opts) => LOAD_POSTS(opts)(dispatch),
-    loadUsers: (opts) => LOAD_USERS(opts)(dispatch),
-    loadComments: (opts) => LOAD_COMMENTS(opts)(dispatch)
+    loadUsers: (opts) => LOAD_USERS(opts)(dispatch)
   };
 }
 
