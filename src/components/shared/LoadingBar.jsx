@@ -6,34 +6,39 @@ let ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 export default class LoadingBar extends mixin(React.addons.PureRenderMixin) {
   displayName = 'LoadingBar component'
+  timeoutId = null
   constructor(props) {
     super(props);
-    this.state = {pending: props.pending || 0, complete: props.complete || 0};
+    let {pending, complete} = props;
+    let percent = (complete / pending) * 100;
+    this.state = {percent};
+  }
+  setNextProps(percent) {
+    if (this.timeoutId) { clearTimeout(this.timeoutId); }
+    this.setState({percent});
   }
   componentWillReceiveProps(nextProps) {
     let {pending, complete} = nextProps;
-    let setNextProps = ()=> this.setState({pending, complete});
-    if (this.props.complete > 0 && complete === 0) {
-      this.setState({
-        pending: this.props.pending,
-        complete: this.props.pending
-      });
+    let percent = (complete / pending) * 100;
 
-      setTimeout(setNextProps, 1000);
+    percent = (isNaN(percent) ? 0 : percent);
+    if (pending > 0 && percent < 10) {
+      percent = 5;
+    }
+
+    if (this.props.complete > 0 && complete === 0) {
+      this.setNextProps(100);
+      this.timeoutId = setTimeout(() => this.setNextProps(0), 1000);
     } else {
-      setNextProps();
+      this.setNextProps(percent);
     }
   }
   render() {
     let result = null;
-    if (this.state.pending !== 0) {
-      let percent = (this.state.complete / this.state.pending) * 100;
-      if (percent < 10) {
-        percent = 5;
-      }
+    if (this.state.percent !== 0) {
       result = (
         <ReactCSSTransitionGroup transitionName="example" transitionAppear={true}>
-          <ProgressBar active now={percent} />
+          <ProgressBar active now={this.state.percent} />
         </ReactCSSTransitionGroup>
       );
     }

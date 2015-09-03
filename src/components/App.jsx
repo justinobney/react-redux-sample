@@ -3,7 +3,7 @@ import React, {Component} from 'react/addons';
 import {connect} from 'react-redux';
 import {Grid} from 'react-bootstrap';
 import TopNav from './TopNav';
-import LoadingBar from './shared/LoadingBar'
+import LoadingBar from './shared/LoadingBar';
 
 class App extends Component {
   displayName = 'App component'
