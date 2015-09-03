@@ -1,5 +1,5 @@
 import React, {Component} from 'react/addons';
-import {Panel} from 'react-bootstrap';
+import {Panel, OverlayTrigger, Popover, Button} from 'react-bootstrap';
 
 export default class PostDetail extends Component {
   displayName = 'PostDetail component'
@@ -18,7 +18,19 @@ export default class PostDetail extends Component {
         bsStyle="info">
           {thePost.body}
           <hr />
-          {`-- ${theUser.name || 'Loading...'}`}
+
+          <OverlayTrigger trigger="click" rootClose placement="top"
+            overlay={<Popover title={theUser.name}>
+                <strong>@{theUser.username}</strong>
+                <br />
+                <a href={`mailto:${theUser.email}`} target="_blank">{theUser.email}</a>
+                <br />
+                {theUser.phone}
+              </Popover>}>
+            <Button bsStyle="link">
+              {`-- ${theUser.name || 'Loading...'}`}
+            </Button>
+          </OverlayTrigger>
       </Panel>
     );
   }
