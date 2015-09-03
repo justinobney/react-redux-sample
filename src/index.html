@@ -2,6 +2,25 @@
   <head>
     <title>react-redux-sample</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <style type="text/css">
+      .example-appear {
+        opacity: 0.01;
+        transition: opacity .5s ease-in;
+      }
+
+      .example-appear.example-appear-active {
+        opacity: 1;
+      }
+      
+      .example-leave {
+        opacity: 1;
+      }
+
+      .example-leave.example-leave-active {
+        opacity: 0.01;
+        transition: opacity .5s ease-in;
+      }
+    </style>
   </head>
   <body>
     <div id="container">

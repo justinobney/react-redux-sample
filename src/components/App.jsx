@@ -4,6 +4,8 @@ import {connect} from 'react-redux';
 import {Grid, ProgressBar} from 'react-bootstrap';
 import TopNav from './TopNav';
 
+let ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
+
 class App extends Component {
   displayName = 'App component'
   render() {
@@ -48,7 +50,9 @@ class LoadingBar extends Component {
         percent = 5;
       }
       result = (
-        <ProgressBar active now={percent} />
+        <ReactCSSTransitionGroup transitionName="example" transitionAppear={true}>
+          <ProgressBar active now={percent} />
+        </ReactCSSTransitionGroup>
       );
     }
 
