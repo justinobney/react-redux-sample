@@ -1,19 +1,17 @@
 import React, {Component} from 'react/addons';
+import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {Row, Col} from 'react-bootstrap';
 import {LOAD_POSTS, LOAD_USERS} from 'actions/api';
+import {api} from 'actions/apiMiddleware';
 import PostDetail from 'components/posts/PostDetail';
 
 // Posts component
 class Posts extends Component {
   displayName = 'Posts component'
   componentWillMount() {
-    if (this.props.loadPosts) {
-      this.props.loadPosts();
-    }
-    if (this.props.loadUsers) {
-      this.props.loadUsers();
-    }
+    this.props.api.fetch(LOAD_POSTS);
+    this.props.api.fetch(LOAD_USERS);
   }
   _renderPost(thePost) {
     let theUser = this._findByKey(this.props.users, 'id', thePost.userId);
@@ -54,6 +52,7 @@ function mapStateToProps(reducers) {
 
 function mapDispatchToProps(dispatch) {
   return {
+    api: bindActionCreators(api, dispatch),
     loadPosts: (opts) => LOAD_POSTS(opts)(dispatch),
     loadUsers: (opts) => LOAD_USERS(opts)(dispatch)
   };

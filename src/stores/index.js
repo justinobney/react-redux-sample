@@ -7,6 +7,7 @@ import {officeState} from 'reducers/offices';
 import {posts} from 'reducers/posts';
 import {users} from 'reducers/users';
 import {comments} from 'reducers/comments';
+import apiMiddleware from 'actions/apiMiddleware';
 
 let reducerTree = {
   uiState,
@@ -20,7 +21,7 @@ let buildStore;
 /* eslint-disable */
 if (__DEBUG__) {
 /* eslint-enable */
-  buildStore = compose(applyMiddleware(thunk), devTools(), createStore);
+  buildStore = compose(applyMiddleware(thunk, apiMiddleware), devTools(), createStore);
 } else {
   buildStore = compose(applyMiddleware(thunk), createStore);
 }
