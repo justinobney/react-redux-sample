@@ -20,6 +20,7 @@
     "babel-loader": "5.x",
     "babel-runtime": "5.x",
     "core-js": "~1.0.0",
+    "es6-react-mixins": "^0.1.8",
     "eslint": "0.24.x",
     "eslint-loader": "0.14.x",
     "eslint-plugin-react": "3.x",
