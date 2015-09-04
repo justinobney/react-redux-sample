@@ -1,16 +1,16 @@
-import React from 'react/addons';
+import React, {Component} from 'react/addons';
 import {ProgressBar} from 'react-bootstrap';
 import mixin from 'es6-react-mixins';
 
 let ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
-export default class LoadingBar extends mixin(React.addons.PureRenderMixin) {
+export default class LoadingBar extends Component {
   displayName = 'LoadingBar component'
   timeoutId = null
   constructor(props) {
     super(props);
     let {pending, complete} = props;
-    let percent = (complete / pending) * 100;
+    let percent = ((complete / pending) * 100) || 0;
     this.state = {percent};
   }
   setNextProps(percent) {
@@ -37,12 +37,21 @@ export default class LoadingBar extends mixin(React.addons.PureRenderMixin) {
     let result = null;
     if (this.state.percent !== 0) {
       result = (
-        <ReactCSSTransitionGroup transitionName="example" transitionAppear={true}>
-          <ProgressBar active now={this.state.percent} />
-        </ReactCSSTransitionGroup>
+        <LoadingBarInner percent={this.state.percent} />
       );
     }
 
     return result;
+  }
+}
+
+class LoadingBarInner extends mixin(React.addons.PureRenderMixin) {
+  displayName = 'LoadingBarInner component'
+  render() {
+    return (
+      <ReactCSSTransitionGroup transitionName="example" transitionAppear={true}>
+        <ProgressBar active now={this.props.percent} />
+      </ReactCSSTransitionGroup>
+    );
   }
 }
