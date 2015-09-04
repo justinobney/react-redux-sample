@@ -43,6 +43,26 @@ class Posts extends Component {
   }
 }
 
+Posts.propTypes = {
+  api: React.PropTypes.shape({
+    fetch: React.PropTypes.func
+  }),
+  users: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
+  posts: React.PropTypes.arrayOf(React.PropTypes.object).isRequired
+};
+
+Posts.defaultProps = {
+  api: {fetch: notSuppied('api.fetch')},
+  users: {},
+  posts: {}
+};
+
+function notSuppied(methodName) {
+  return function (...args) {
+    console.log(`${methodName} was not supplied. Called with args:`, args);
+  };
+}
+
 function mapStateToProps(reducers) {
   return {
     posts: reducers.posts,
