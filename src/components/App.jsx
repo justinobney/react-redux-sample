@@ -13,9 +13,9 @@ class App extends Component {
       <div>
         <TopNav />
         <Grid>
-          <LoadingBar pending={loading.pending} complete={loading.complete} />
           {this.props.children}
         </Grid>
+        <LoadingBar pending={loading.pending} complete={loading.complete} />
       </div>
     );
   }

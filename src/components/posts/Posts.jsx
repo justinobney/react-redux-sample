@@ -36,7 +36,7 @@ class Posts extends Component {
       <Row>
         <Col xs={8}>
           <h1>POSTS</h1>
-          {thePosts.map((p)=>::this._renderPost(p))}
+          {thePosts.slice(0, 10).map((p)=>::this._renderPost(p))}
         </Col>
       </Row>
     );

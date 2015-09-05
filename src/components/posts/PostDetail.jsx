@@ -3,34 +3,40 @@ import {Panel, OverlayTrigger, Popover, Button} from 'react-bootstrap';
 
 export default class PostDetail extends Component {
   displayName = 'PostDetail component'
-  render() {
-    let thePost = this.props.post;
-    let theUser = this.props.user || {};
-    let thePopover = (
-      <Popover title={theUser.name}>
-        <a href={`mailto:${theUser.email}`} target="_blank">
-          {theUser.email}
-        </a>
-        <br />
-        {theUser.phone}
-      </Popover>
-    );
+  renderPopoverTrigger(user) {
+    let content = 'Loading User Info...';
 
+    if (user.username) {
+      let userInfoPopover = (
+        <Popover title={user.name}>
+          <a href={`mailto:${user.email}`} target="_blank">
+            {user.email}
+          </a>
+          <br />
+          {user.phone}
+        </Popover>
+      );
+
+      content = (
+        <OverlayTrigger rootClose trigger="click"
+          placement="top" overlay={userInfoPopover}>
+            <Button bsStyle="link">
+              {`-- @${user.username}`}
+            </Button>
+        </OverlayTrigger>
+      );
+    }
+
+    return content;
+  }
+  render() {
+    let {post, user} = this.props;
+    let titleLink = <a href={`#/posts/${post.id}`}>{post.title}</a>;
     return (
-      <Panel
-        bsStyle="info"
-        header={<a href={`#/posts/${thePost.id}`}>{thePost.title}</a>}>
-          {thePost.body}
+      <Panel bsStyle="info" header={titleLink}>
+          {post.body}
           <hr />
-          <OverlayTrigger
-            trigger="click"
-            rootClose
-            placement="top"
-            overlay={thePopover}>
-              <Button bsStyle="link">
-                {`-- @${theUser.username || 'Loading...'}`}
-              </Button>
-          </OverlayTrigger>
+          {this.renderPopoverTrigger(user || {})}
       </Panel>
     );
   }

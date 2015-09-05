@@ -1,8 +1,4 @@
 import React, {Component} from 'react/addons';
-import {ProgressBar} from 'react-bootstrap';
-import mixin from 'es6-react-mixins';
-
-let ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 export default class LoadingBar extends Component {
   displayName = 'LoadingBar component'
@@ -15,18 +11,23 @@ export default class LoadingBar extends Component {
   }
   setNextProps(percent) {
     if (this.timeoutId) { clearTimeout(this.timeoutId); }
+    if (percent === 100 && this.intervalId) { clearInterval(this.intervalId); }
     this.setState({percent});
   }
   componentWillReceiveProps(nextProps) {
     let {pending, complete} = nextProps;
     let percent = (complete / pending) * 100;
 
+    if (pending > 0 && nextProps.pending > 0 && !this.intervalId) {
+      this.intervalId = setInterval(() => this.setNextProps(this.state.percent + 2), 200);
+    }
+
     percent = (isNaN(percent) ? 0 : percent);
     if (pending > 0 && percent < 10) {
       percent = 5;
     }
 
-    if (this.props.complete > 0 && complete === 0) {
+    if (this.props.pending > 0 && complete === 0) {
       this.setNextProps(100);
       this.timeoutId = setTimeout(() => this.setNextProps(0), 1000);
     } else {
@@ -34,24 +35,17 @@ export default class LoadingBar extends Component {
     }
   }
   render() {
-    let result = null;
-    if (this.state.percent !== 0) {
-      result = (
-        <LoadingBarInner percent={this.state.percent} />
-      );
-    }
-
-    return result;
-  }
-}
-
-class LoadingBarInner extends mixin(React.addons.PureRenderMixin) {
-  displayName = 'LoadingBarInner component'
-  render() {
+    let progressBarStyle = {
+      width: `${this.state.percent}%`,
+      display: this.state.percent > 0 ? 'block' : 'none',
+      height: '4px',
+      backgroundColor: '#f00',
+      transition: 'width ease .5s'
+    };
     return (
-      <ReactCSSTransitionGroup transitionName="example" transitionAppear={true}>
-        <ProgressBar active now={this.props.percent} />
-      </ReactCSSTransitionGroup>
+      <div className="loading-bar-container">
+        <div className="loading-bar-progress" style={progressBarStyle}></div>
+      </div>
     );
   }
 }
