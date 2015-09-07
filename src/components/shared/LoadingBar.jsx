@@ -3,6 +3,13 @@ import React, {Component} from 'react/addons';
 export default class LoadingBar extends Component {
   displayName = 'LoadingBar component'
   timeoutId = null
+  progressBarStyle = {
+    width: '0%',
+    display: 'none',
+    height: '4px',
+    backgroundColor: '#f00',
+    transition: 'width ease .5s'
+  }
   constructor(props) {
     super(props);
     let {pending, complete} = props;
@@ -41,16 +48,13 @@ export default class LoadingBar extends Component {
     this.setState({percent});
   }
   render() {
-    let progressBarStyle = {
+    let style = Object.assign({}, this.progressBarStyle, {
       width: `${this.state.percent}%`,
-      display: this.state.percent > 0 ? 'block' : 'none',
-      height: '4px',
-      backgroundColor: '#f00',
-      transition: 'width ease .5s'
-    };
+      display: this.state.percent > 0 ? 'block' : 'none'
+    });
     return (
       <div className="loading-bar-container">
-        <div className="loading-bar-progress" style={progressBarStyle}></div>
+        <div className="loading-bar-progress" style={style}></div>
       </div>
     );
   }
