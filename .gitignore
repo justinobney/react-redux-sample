@@ -31,3 +31,6 @@ node_modules
 tmp/
 
 guides/
+
+# added by GitSavvy
+.settings

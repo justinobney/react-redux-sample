@@ -9,11 +9,6 @@ export default class LoadingBar extends Component {
     let percent = ((complete / pending) * 100) || 0;
     this.state = {percent};
   }
-  setNextProps(percent) {
-    if (this.timeoutId) { clearTimeout(this.timeoutId); }
-    if (percent === 100 && this.intervalId) { clearInterval(this.intervalId); }
-    this.setState({percent});
-  }
   componentWillReceiveProps(nextProps) {
     let {pending, complete} = nextProps;
     let percent = (complete / pending) * 100;
@@ -33,6 +28,17 @@ export default class LoadingBar extends Component {
     } else {
       this.setNextProps(percent);
     }
+  }
+  setNextProps(percent) {
+    if (this.timeoutId) {
+      clearTimeout(this.timeoutId);
+    }
+
+    if (percent === 100 && this.intervalId) {
+      clearInterval(this.intervalId);
+    }
+
+    this.setState({percent});
   }
   render() {
     let progressBarStyle = {

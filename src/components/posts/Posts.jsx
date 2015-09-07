@@ -13,22 +13,12 @@ class Posts extends Component {
     this.props.api.fetch(LOAD_POSTS);
     this.props.api.fetch(LOAD_USERS);
   }
-  _renderPost(thePost) {
-    let theUser = this._findByKey(this.props.users, 'id', thePost.userId);
+  _renderPost(post) {
+    let user = findByKey(this.props.users, 'id', post.userId);
     return (
-      <PostDetail
-        key={`postDetail_${thePost.id}`}
-        post={thePost}
-        user={theUser} />
+      <PostDetail key={`postDetail_${post.id}`}
+        post={post} user={user} />
     );
-  }
-  _findByKey(col, key, id) {
-    if (!col.length) {
-      return null;
-    }
-    let findById = (item) => item[key] === id;
-    let found = col.filter(findById);
-    return found.length ? found[0] : null;
   }
   render() {
     const thePosts = this.props.posts;
@@ -53,8 +43,8 @@ Posts.propTypes = {
 
 Posts.defaultProps = {
   api: {fetch: notSuppied('api.fetch')},
-  users: {},
-  posts: {}
+  users: [],
+  posts: []
 };
 
 function notSuppied(methodName) {
@@ -77,5 +67,15 @@ function mapDispatchToProps(dispatch) {
     loadUsers: (opts) => LOAD_USERS(opts)(dispatch)
   };
 }
+
+function findByKey(col, key, id) {
+    if (!col.length) {
+      return null;
+    }
+
+    let findById = (item) => item[key] === id;
+    let found = col.filter(findById);
+    return found.length ? found[0] : null;
+  }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Posts);
